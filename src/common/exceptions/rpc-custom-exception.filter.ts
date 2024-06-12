@@ -1,4 +1,5 @@
 import { Catch, ArgumentsHost, ExceptionFilter } from '@nestjs/common';
+
 import { RpcException } from '@nestjs/microservices';
 
 @Catch(RpcException)
@@ -14,7 +15,7 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
       'status' in rpcError &&
       'message' in rpcError
     ) {
-      const status = isNaN(+rpcError.status) ? 400 : +rpcError.status;
+      const status = isNaN(+rpcError.status) ? 400 :+rpcError.status;
       return response.status(status).json(rpcError);
     }
 
