@@ -168,26 +168,22 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
   }
 
   async createPaymentSession(order: OrderWithProducts) {
-
     const paymentSession = await firstValueFrom(
       this.client.send('create.payment.session', {
         orderId: order.id,
         currency: 'usd',
-        items: order.OrderItem.map( item => ({
+        items: order.OrderItem.map((item) => ({
           name: item.name,
           price: item.price,
           quantity: item.quantity,
-        }) ),
+        })),
       }),
     );
 
     return paymentSession;
   }
 
-
-
-  async paidOrder( paidOrderDto: PaidOrderDto ) {
-
+  async paidOrder(paidOrderDto: PaidOrderDto) {
     this.logger.log('Order Paid');
     this.logger.log(paidOrderDto);
 
@@ -202,14 +198,12 @@ export class OrdersService extends PrismaClient implements OnModuleInit {
         // La relación
         OrderReceipt: {
           create: {
-            receiptUrl: paidOrderDto.receiptUrl
-          }
-        }
-      }
+            receiptUrl: paidOrderDto.receiptUrl,
+          },
+        },
+      },
     });
 
     return order;
-
   }
-
 }
