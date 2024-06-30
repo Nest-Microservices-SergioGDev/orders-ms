@@ -14,3 +14,10 @@ docker compose up -d
 docker run -d --name nats-server -p 4222:4222 -p 8222:8222 nats
 ```
 5. Levantar el proyecto con `npm run start:dev`
+
+
+## PROD
+Para desplegar en producción hay que generar la imagen ejecutando lo siguiente:
+```
+docker build -f Dockerfile.prod -t orders-ms .
+```
